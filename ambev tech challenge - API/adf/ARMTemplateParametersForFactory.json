@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "beeschallengeADF"
+        },
+        "bees_datalake_accountKey": {
+            "value": ""
+        },
+        "bees_datalake_properties_typeProperties_url": {
+            "value": "https://beeschallenge.dfs.core.windows.net/"
+        },
+        "openbrewerydb_properties_typeProperties_url": {
+            "value": "https://api.openbrewerydb.org/v1/breweries?by_country=united_states&per_page=100"
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "beeschallengeADF"
+        },
+        "bees_datalake_accountKey": {
+            "type": "secureString",
+            "metadata": "Secure string for 'accountKey' of 'bees_datalake'"
+        },
+        "bees_datalake_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://beeschallenge.dfs.core.windows.net/"
+        },
+        "openbrewerydb_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://api.openbrewerydb.org/v1/breweries?by_country=united_states&per_page=100"
+        },
+        "containerUri": {
+            "type": "string",
+            "metadata": "URI to storage account containing linked ARM templates"
+        },
+        "containerSasToken": {
+            "type": "string",
+            "metadata": "Sas token to storage account containing linked ARM templates"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "beeschallengeADF_ArmTemplate_0",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2024-03-01",
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "factoryName": {
+                        "value": "[parameters('factoryName')]"
+                    },
+                    "bees_datalake_accountKey": {
+                        "value": "[parameters('bees_datalake_accountKey')]"
+                    },
+                    "bees_datalake_properties_typeProperties_url": {
+                        "value": "[parameters('bees_datalake_properties_typeProperties_url')]"
+                    },
+                    "openbrewerydb_properties_typeProperties_url": {
+                        "value": "[parameters('openbrewerydb_properties_typeProperties_url')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}
